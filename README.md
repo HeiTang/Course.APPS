@@ -6,3 +6,6 @@
 
 ![](https://github.com/HeiTang/Course.APPS/blob/master/Picture/Lab1.PNG?raw=true)
 
+### Lab 2 
+
+![](https://github.com/HeiTang/Course.APPS/blob/master/Picture/Lab2-All.PNG?raw=true)
