@@ -8,4 +8,4 @@
 
 ### Lab 2 
 
-![](https://github.com/HeiTang/Course.APPS/blob/master/Picture/Lab2-All.PNG?raw=true)
+![](https://raw.githubusercontent.com/HeiTang/Course.APPS/master/Picture/Lab2-All.png)
