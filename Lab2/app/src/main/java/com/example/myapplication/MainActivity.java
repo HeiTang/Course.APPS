@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         button = (Button)findViewById(R.id.button);
+        button_add = (Button)findViewById(R.id.button2);
         button_sub = (Button)findViewById(R.id.button3);
         button_mul = (Button)findViewById(R.id.button4);
         button_div = (Button)findViewById(R.id.button5);
@@ -39,132 +40,114 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
-        button.setOnTouchListener(new bmiclicklistener());
-//        button_add.setOnTouchListener(new bmiclicklistener());
-//        button_add.setOnTouchListener(new addclick());
-//        button_sub.setOnTouchListener(subclick);
-//        button_mul.setOnTouchListener(mulclick);
-//        button_div.setOnTouchListener(divclick);
+        button.setOnClickListener(bmiclicklistener);
+        button_add.setOnClickListener(addclicklistener);
+        button_sub.setOnClickListener(subclicklistener);
+        button_mul.setOnClickListener(mulclicklistener);
+        button_div.setOnClickListener(divclicklistener);
     }
 
-    private final class bmiclicklistener implements View.OnTouchListener{
+    private View.OnClickListener bmiclicklistener = new View.OnClickListener(){
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            Button cat = (Button)v;
-            if(cat == button){
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, Main2Activity.class);
+        public  void onClick(View v){
+            Intent intent_BMI = new Intent();
+            intent_BMI.setClass(MainActivity.this, Main2Activity.class);
 
-                EditText heightText = (EditText)findViewById(R.id.editText);
-                EditText weightText = (EditText)findViewById(R.id.editText2);
-                //身高
-                double height = Double.parseDouble(heightText.getText().toString());
-                //體重
-                double weight = Double.parseDouble(weightText.getText().toString());
-                //bmi
-                double BMI = weight/(height*height);
+            EditText heightText = (EditText)findViewById(R.id.editText);
+            EditText weightText = (EditText)findViewById(R.id.editText2);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("BMIText", String.valueOf(BMI));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-//            if(cat == button_add){
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, Main2Activity.class);
-//
-//                EditText numText1 = (EditText)findViewById(R.id.editText5);
-//                EditText numText2 = (EditText)findViewById(R.id.editText4);
-//
-//                double num1 = Double.parseDouble(numText1.getText().toString());
-//                double num2 = Double.parseDouble(numText2.getText().toString());
-//                double SUM = num1 + num2;
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("SUMText", String.valueOf(SUM));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-            return false;
+            //身高
+            double height = Double.parseDouble(heightText.getText().toString());
+            //體重
+            double weight = Double.parseDouble(weightText.getText().toString());
+            //bmi
+            double BMI = weight/(height*height);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("BMIText", String.valueOf(BMI));
+            intent_BMI.putExtras(bundle);
+            startActivity(intent_BMI);
         }
-    }
+    };
 
-//    private final class addclick implements View.OnTouchListener{
-//        @Override
-//        public boolean onTouch(View v, MotionEvent event) {
-//            Button cat = (Button)v;
-//            if(cat == button){
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, Main2Activity.class);
-//
-//                EditText numText1 = (EditText)findViewById(R.id.editText5);
-//                EditText numText2 = (EditText)findViewById(R.id.editText4);
-//
-//                double num1 = Double.parseDouble(numText1.getText().toString());
-//                double num2 = Double.parseDouble(numText2.getText().toString());
-//                double SUM = num1 + num2;
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("SUMText", String.valueOf(SUM));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//            return false;
-//        }
-//    }
+    private View.OnClickListener addclicklistener = new View.OnClickListener(){
+        @Override
+        public  void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, Main2Activity.class);
 
-//    private View.OnClickListener addclick = new View.OnClickListener(){
-//        public void onClick(View v){
+            EditText numText1 = (EditText)findViewById(R.id.editText5);
+            EditText numText2 = (EditText)findViewById(R.id.editText4);
 
-//
-//            TextView SUMshow = (TextView)findViewById(R.id.textView5);
-//            String show = String.valueOf(SUM);
-//            SUMshow.setText("= " + show);
-//        }
-//    };
-//
-//    private View.OnClickListener subclick = new View.OnClickListener(){
-//        public void onClick(View v){
-//            EditText numText1 = (EditText)findViewById(R.id.editText5);
-//            EditText numText2 = (EditText)findViewById(R.id.editText4);
-//
-//            double num1 = Double.parseDouble(numText1.getText().toString());
-//            double num2 = Double.parseDouble(numText2.getText().toString());
-//            double SUM = num1 - num2;
-//
-//            TextView SUMshow = (TextView)findViewById(R.id.textView5);
-//            String show = String.valueOf(SUM);
-//            SUMshow.setText("= " + show);
-//        }
-//    };
-//
-//    private View.OnClickListener mulclick = new View.OnClickListener(){
-//        public void onClick(View v){
-//            EditText numText1 = (EditText)findViewById(R.id.editText5);
-//            EditText numText2 = (EditText)findViewById(R.id.editText4);
-//
-//            double num1 = Double.parseDouble(numText1.getText().toString());
-//            double num2 = Double.parseDouble(numText2.getText().toString());
-//            double SUM = num1 * num2;
-//
-//            TextView SUMshow = (TextView)findViewById(R.id.textView5);
-//            String show = String.valueOf(SUM);
-//            SUMshow.setText("= " + show);
-//        }
-//    };
-//
-//    private View.OnClickListener divclick = new View.OnClickListener(){
-//        public void onClick(View v){
-//            EditText numText1 = (EditText)findViewById(R.id.editText5);
-//            EditText numText2 = (EditText)findViewById(R.id.editText4);
-//
-//            double num1 = Double.parseDouble(numText1.getText().toString());
-//            double num2 = Double.parseDouble(numText2.getText().toString());
-//            double SUM = num1 / num2;
-//
-//            TextView SUMshow = (TextView)findViewById(R.id.textView5);
-//            String show = String.valueOf(SUM);
-//            SUMshow.setText("= " + show);
-//        }
-//    };
+            double num1 = Double.parseDouble(numText1.getText().toString());
+            double num2 = Double.parseDouble(numText2.getText().toString());
+            double SUM = num1 + num2;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("SUMText", String.valueOf(SUM));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener subclicklistener = new View.OnClickListener(){
+        @Override
+        public  void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, Main2Activity.class);
+
+            EditText numText1 = (EditText)findViewById(R.id.editText5);
+            EditText numText2 = (EditText)findViewById(R.id.editText4);
+
+            double num1 = Double.parseDouble(numText1.getText().toString());
+            double num2 = Double.parseDouble(numText2.getText().toString());
+            double SUM = num1 - num2;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("SUMText", String.valueOf(SUM));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener mulclicklistener = new View.OnClickListener(){
+        @Override
+        public  void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, Main2Activity.class);
+
+            EditText numText1 = (EditText)findViewById(R.id.editText5);
+            EditText numText2 = (EditText)findViewById(R.id.editText4);
+
+            double num1 = Double.parseDouble(numText1.getText().toString());
+            double num2 = Double.parseDouble(numText2.getText().toString());
+            double SUM = num1 * num2;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("SUMText", String.valueOf(SUM));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener divclicklistener = new View.OnClickListener(){
+        @Override
+        public  void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, Main2Activity.class);
+
+            EditText numText1 = (EditText)findViewById(R.id.editText5);
+            EditText numText2 = (EditText)findViewById(R.id.editText4);
+
+            double num1 = Double.parseDouble(numText1.getText().toString());
+            double num2 = Double.parseDouble(numText2.getText().toString());
+            double SUM = num1 / num2;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("SUMText", String.valueOf(SUM));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    };
 }
+
