@@ -2,18 +2,25 @@ package com.example.lab4;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Location;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeechService;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public LatLng latlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +47,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(24.178817, 120.646691);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("逢甲大學_林宇辰"));
+        final LatLng sydney = new LatLng(24.178817, 120.646691);
+
+        BitmapDescriptor descriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+        mMap.addMarker(new MarkerOptions().position(sydney).icon(descriptor).draggable(true));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                latlng = marker.getPosition();
+                Toast.makeText(getApplicationContext(),"Drag started",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                LatLng latlng2 = marker.getPosition();
+                double latitude2 = latlng2.latitude;
+                double longitude2 = latlng2.longitude;
+
+                float[] result = new float[1];
+
+                Location.distanceBetween(latlng.latitude,latlng.longitude, latitude2, longitude2, result);
+
+                result[0] = result[0] * (float)0.001;
+
+                Toast.makeText(getApplicationContext(),"result = "+result[0]+"Km",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
